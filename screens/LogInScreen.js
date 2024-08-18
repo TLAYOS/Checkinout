@@ -11,6 +11,11 @@ const LogInScreen = (props) => {
     const [password, setPassword] = useState('');
     const auth = getAuth();
     useEffect(() => {
+        setEmail('');
+        setPassword('');
+        
+    }, []);
+    useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 props.navigation.replace('HomeScreen');
