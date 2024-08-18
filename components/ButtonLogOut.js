@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'rigth',
-      width:100,
+      width:200,
       marginTop: 60
     },
     button: {
