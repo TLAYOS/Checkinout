@@ -38,7 +38,7 @@ const LogInScreen = (props) => {
     style={styles.textInput}
     secureTextEntry
     />
-    <TouchableOpacity onPress={onPress}>        
+    <TouchableOpacity>        
     <Text style={styles.forgotpassword}>¿Olvidó su Contraseña?</Text>
     </TouchableOpacity>
     <ButtonGradient onPress={handleLogin}/>
