@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useState } from 'react'
-import { View, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TextInput, Text, TouchableOpacity, Alert } from 'react-native'
 import ButtonGradient from '../components/ButtonGradient'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../database/firebase'
@@ -20,7 +20,7 @@ const LogInScreen = (props) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.error('Error al iniciar sesión' , errorCode, errorMessage);
-            alert(`Login failed: ${errorMessage}`);
+            Alert.alert(`Login failed: ${errorMessage}`);
         })
     }
 
