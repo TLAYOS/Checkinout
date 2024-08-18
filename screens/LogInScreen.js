@@ -9,13 +9,13 @@ import { initializeApp } from 'firebase/app'
 const LogInScreen = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const auth = getAuth(app);
+    
 
     const handleLogin = () => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-            props.navgation.navigate('HomeScreen');
+            props.navigation.navigate('HomeScreen');
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
