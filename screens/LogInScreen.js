@@ -2,50 +2,52 @@ import { StatusBar } from 'expo-status-bar'
 import React, { useState } from 'react'
 import { View, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native'
 import ButtonGradient from '../components/ButtonGradient'
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../database/firebase'
-import { initializeApp } from 'firebase/app'
 
 const LogInScreen = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
 
     const handleLogin = () => {
+        console.log('Apretó el Buton'); // Check if the function is triggered
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            const user = userCredential.user;
+            console.log('User logged in successfully:', userCredential.user);
             props.navigation.navigate('HomeScreen');
-        }).catch((error) => {
+        })
+        .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.error('Error al iniciar sesión' , errorCode, errorMessage);
+            alert(`Login failed: ${errorMessage}`);
         })
     }
-  return (
-    <View style={styles.container}>
-    <Text style={styles.title}>Subestación</Text>
-    <Text style={styles.subtitle}>Bienvenido</Text>
-    <TextInput
-    value={email}
-    onChangeText={(text) => setEmail(text) }
-    placeholder='comision@cfe.com.mx'
-    style={styles.textInput} />
-    <TextInput
-    value={password} 
-    placeholder='Contraseña' 
-    onChangeText={(text) => setPassword(text)}
-    style={styles.textInput}
-    secureTextEntry
-    />
-    <TouchableOpacity>        
-    <Text style={styles.forgotpassword}>¿Olvidó su Contraseña?</Text>
-    </TouchableOpacity>
-    <ButtonGradient onPress={handleLogin}/>
-    <StatusBar style='auto'/>
 
-    </View>
-  )
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Subestación</Text>
+            <Text style={styles.subtitle}>Bienvenido</Text>
+            <TextInput
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                placeholder='comision@cfe.com.mx'
+                style={styles.textInput}
+            />
+            <TextInput
+                value={password}
+                placeholder='Contraseña'
+                onChangeText={(text) => setPassword(text)}
+                style={styles.textInput}
+                secureTextEntry
+            />
+            <TouchableOpacity onPress={() => { /* Handle forgot password */ }}>
+                <Text style={styles.forgotpassword}>¿Olvidó su Contraseña?</Text>
+            </TouchableOpacity>
+            <ButtonGradient onPress={handleLogin} />
+            <StatusBar style='auto'/>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -60,16 +62,14 @@ const styles = StyleSheet.create({
         color: '#34434D',
         fontWeight: 'bold',
         alignItems: 'center'
-
-
     }, 
     subtitle: {
         fontSize: 20, 
-        color: '#gray'
+        color: 'gray'
     },
     textInput: { 
         padding: 10,
-        paddiingStart: 40,
+        paddingStart: 40,
         width: '80%',
         height: 50,
         marginTop: 20,
@@ -81,8 +81,6 @@ const styles = StyleSheet.create({
         color: 'gray', 
         marginTop: 28
     }
-
-
 })
 
 export default LogInScreen
