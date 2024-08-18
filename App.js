@@ -15,10 +15,10 @@ function MyStack() {
   return(
     
     <Stack.Navigator>
+      <Stack.Screen name='LogInScreen' component={LogInScreen} options={{title: 'Inicio de Sesion'}}/>
       <Stack.Screen name='UsersList' component={UsersList} options={{title: 'Lista de Usuarios'}} />
       <Stack.Screen name='CreateUserScreen' component={CreateUserScreen} options={{title: 'Crear Usuario'}} />
       <Stack.Screen name='UserDetailScreen' component={UserDetailScreen} options={{title: 'Detalles del Usuario'}}/>
-      <Stack.Screen name='LogInScreen' component={LogInScreen} options={{title: 'Inicio de Sesion'}}/>
       <Stack.Screen name='HomeScreen' component={HomeScreen} options={{title: 'Menu'}}/> 
     </Stack.Navigator>
 
