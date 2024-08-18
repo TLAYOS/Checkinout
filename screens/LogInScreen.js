@@ -1,13 +1,22 @@
 import { StatusBar } from 'expo-status-bar'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, TextInput, Text, TouchableOpacity, Alert } from 'react-native'
 import ButtonGradient from '../components/ButtonGradient'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, getAuth, onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../database/firebase'
 
 const LogInScreen = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const auth = getAuth();
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                props.navigation.replace('HomeScreen');
+            }
+        });
+        return unsubscribe;
+    }, []);
 
     const handleLogin = () => {
         console.log('Apretó el Buton'); // Check if the function is triggered
