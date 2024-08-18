@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, TextInput, Text, TouchableOpacity, Alert } from 'react-native'
+import { View, StyleSheet, TextInput, Text, TouchableOpacity, Alert, Keyboard } from 'react-native'
 import ButtonGradient from '../components/ButtonGradient'
 import { signInWithEmailAndPassword, getAuth, onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../database/firebase'
+
 
 const LogInScreen = (props) => {
     const [email, setEmail] = useState('');
@@ -42,6 +43,8 @@ const LogInScreen = (props) => {
                 onChangeText={(text) => setEmail(text)}
                 placeholder='comision@cfe.com.mx'
                 style={styles.textInput}
+                keyboardType='email-address'
+                autoCapitalize='none'
             />
             <TextInput
                 value={password}
@@ -49,6 +52,8 @@ const LogInScreen = (props) => {
                 onChangeText={(text) => setPassword(text)}
                 style={styles.textInput}
                 secureTextEntry
+                returnKeyType='done'
+                onSubmitEditing={Keyboard.dismiss}
             />
             <TouchableOpacity onPress={() => { /* Handle forgot password */ }}>
                 <Text style={styles.forgotpassword}>¿Olvidó su Contraseña?</Text>
