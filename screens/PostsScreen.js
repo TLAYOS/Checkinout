@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Image, TextInput, Button, StyleSheet } from 'react-native';
 import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
 import { db } from '../database/firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getFirestore, serverTimestamp } from 'firebase/firestore';
 
 const PostsScreen = () => {
   const [images, setImages] = useState([]);
@@ -35,8 +35,7 @@ const PostsScreen = () => {
       await addDoc(postsRef, {
         imageUrl: selectedImage,
         message: message,
-        timestamp: new Date(),
-        // You can add more fields here, like the user's ID, username, etc.
+        timestamp: serverTimestamp(),  // Automatically adds the current timestamp
       });
   
       alert('Post saved successfully!');
@@ -45,8 +44,6 @@ const PostsScreen = () => {
       setSelectedImage(null);
       setMessage('');
       
-      // You can also navigate to another screen if needed
-      // props.navigation.navigate('SomeOtherScreen');
     } catch (error) {
       console.error('Error adding post: ', error);
       alert('Failed to save post. Please try again.');
