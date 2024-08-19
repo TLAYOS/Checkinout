@@ -70,15 +70,26 @@ const CheckInScreen = () => {
                 const biometricAuth = await LocalAuthentication.authenticateAsync({
                     promptMessage: 'Checkeo con Biometricos',
                     cancelLabel: 'cancel',
-                    disableDeviceFallback: true,
+                    disableDeviceFallback: false,
                 });
 
                 //Exitus
-                if (biometricAuth) {twoButtonAlert()};
-                console.log({isBiometricAvailable});
-                console.log({supportedBiometrics});
-                console.log({savedBiometrics});
-                console.log({biometricAuth})
+                try {
+                    const biometricAuth = await LocalAuthentication.authenticateAsync({
+                        promptMessage: 'Authenticate with Biometrics',
+                        cancelLabel: 'Cancel',
+                        disableDeviceFallback: false, // Set to false to allow PIN/password fallback
+                    });
+                
+                    // Exitus
+                    if (biometricAuth.success) {
+                        Alert.alert('Authentication Success', 'You have successfully authenticated!');
+                    } else {
+                        Alert.alert('Authentication Failed', 'Please try again');
+                    }
+                } catch (error) {
+                    console.error('Biometric authentication error:', error);
+                }
         };
 
   return (

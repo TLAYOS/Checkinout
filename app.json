@@ -13,7 +13,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.Rogelio Aguilera.checkinout",
+      "bundleIdentifier": "com.RogelioAguilera.checkinout",
       "infoPlist": {
         "NSFaceIDUsageDescription": "We need to use Face ID to authenticate you securely."
       }
