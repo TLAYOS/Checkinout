@@ -21,11 +21,17 @@ const HomeScreen = (props) => {
     const navUsrDt = () => {
         props.navigation.navigate('UsersList');
     }
+    const naviPosts = () => {
+        props.navigation.navigate('PostsScreen');
+    }
   return (
     <View style={styles.container}>
     <ButtonLogOut onPress={handleLogout}/>
     <TouchableOpacity style={styles.uploadButton} onPress={navigateToUploadPost}>
         <Text style={styles.buttonText}>Subir Anuncio</Text>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.uploadButton} onPress={naviPosts}>
+        <Text style={styles.buttonText}>Ver Anuncios</Text>
     </TouchableOpacity>
     <TouchableOpacity style={styles.uploadButton} onPress={navUsrDt}>
         <Text style={styles.buttonText}>Lista de Usuarios</Text>
