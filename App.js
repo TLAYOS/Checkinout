@@ -11,6 +11,7 @@ import UploadPostScreen from './screens/UploadPostScreen';
 import PostsScreen from './screens/PostsScreen';
 import PostsListScreen from './screens/PostsListScreen';
 import CheckInScreen from './screens/CheckInScreen';
+import CheckOutScreen from './screens/CheckOutScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -28,6 +29,7 @@ function MyStack() {
       <Stack.Screen name='PostsScreen' component={PostsScreen} options={{title: 'Crear Avisos'}}/>
       <Stack.Screen name='PostsListScreen' component={PostsListScreen} options={{title: 'Avisos'}}/>
       <Stack.Screen name='CheckInScreen' component={CheckInScreen} options={{title: 'Registro de entrada'}}/>
+      <Stack.Screen name='ChecOutScreen' component={CheckOutScreen} options={{title: 'Registro de salida'}}/>
 
     </Stack.Navigator>
 

@@ -5,7 +5,7 @@ import * as LocalAuthentication from 'expo-local-authentication'
 import { db } from '../database/firebase'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
-const CheckInScreen = () => {
+const CheckOutScreen = () => {
 
     const [biometricSupport, setBiometricSupport] = useState(false);
 
@@ -33,7 +33,7 @@ const CheckInScreen = () => {
     };
 
     const twoButtonAlert = () => 
-        Alert.alert('Checaste tu entrada', [
+        Alert.alert('Checaste tu salida', [
             {
                 text: 'Back',
                 onPress: () => console.log('Checkeo cancelado'),
@@ -85,16 +85,17 @@ const CheckInScreen = () => {
                 
                     // Exitus
                     if (biometricAuth.success) {
-                        Alert.alert('Autentifiacion Lograda', 'Tu entrada fue registrada!');
+                        Alert.alert('Autentificacion exitosa', 'Registraste tu salida!');
                         
-                        
-                        await addDoc(collection(db, 'entrada'), {
-                            timestamp: serverTimestamp(),                            
+                        // Save a timestamp to Firestore
+                        await addDoc(collection(db, 'salida'), {
+                            timestamp: serverTimestamp(), 
+                            
                         });
             
                         console.log('Timestamp saved successfully!');
                     } else {
-                        Alert.alert('Fallo en autentificacion', 'Intente de nuevo');
+                        Alert.alert('Authentication Failed', 'Please try again');
                     }
                 } catch (error) {
                     console.error('Biometric authentication error:', error);
@@ -134,4 +135,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CheckInScreen
+export default CheckOutScreen

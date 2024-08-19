@@ -30,6 +30,9 @@ const HomeScreen = (props) => {
     const naviCheckin = () => {
         props.navigation.navigate('CheckInScreen');
     }
+    const naviCheckout = () => {
+        props.navigation.navigate('CheckOutScreen');
+    }
   return (
     <View style={styles.container}>
     <ButtonLogOut onPress={handleLogout}/>
@@ -44,6 +47,9 @@ const HomeScreen = (props) => {
     </TouchableOpacity>
     <TouchableOpacity style={styles.uploadButton} onPress={naviCheckin}>
         <Text style={styles.buttonText}>Registro de entrada</Text>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.uploadButton} onPress={naviCheckout}>
+        <Text style={styles.buttonText}>Registro de salida</Text>
     </TouchableOpacity>
     <TouchableOpacity style={styles.uploadButton} onPress={navUsrDt}>
         <Text style={styles.buttonText}>Lista de Usuarios</Text>
