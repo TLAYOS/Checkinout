@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Image, TextInput, Button, StyleSheet } from 'react-native';
 import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
 import { db } from '../database/firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 const PostsScreen = () => {
   const [images, setImages] = useState([]);
@@ -20,10 +21,37 @@ const PostsScreen = () => {
     fetchImages();
   }, []);
 
-  const handlePost = () => {
-    // Guarda
+  const handlePost = async () => {
+    if (!selectedImage || !message) {
+      alert('Please select an image and write a message.');
+      return;
+    }
+  
+    try {
+      // Create a reference to the 'posts' collection
+      const postsRef = collection(db, 'posts');
+  
+      // Add a new document with the selected image URL and message
+      await addDoc(postsRef, {
+        imageUrl: selectedImage,
+        message: message,
+        timestamp: new Date(),
+        // You can add more fields here, like the user's ID, username, etc.
+      });
+  
+      alert('Post saved successfully!');
+      
+      // Clear the selection and message after posting
+      setSelectedImage(null);
+      setMessage('');
+      
+      // You can also navigate to another screen if needed
+      // props.navigation.navigate('SomeOtherScreen');
+    } catch (error) {
+      console.error('Error adding post: ', error);
+      alert('Failed to save post. Please try again.');
+    }
   };
-
   return (
     <View style={styles.container}>
       <FlatList
@@ -37,7 +65,7 @@ const PostsScreen = () => {
         horizontal
       />
       <TextInput
-        placeholder="Write your message here..."
+        placeholder="Escribe el anuncio..."
         value={message}
         onChangeText={setMessage}
         style={styles.textInput}
