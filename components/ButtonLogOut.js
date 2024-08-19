@@ -17,13 +17,14 @@ const ButtonLogOut = ({onPress}) => {
 }
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      alignItems: 'rigth',
-      width:200,
-      marginTop: 60
+      position: 'absolute',
+      bottom: 20,
+      alignSelf: 'center',
+      width:'80%',
+      
     },
     button: {
-      width: '80%',
+      width: '100%',
       height: 50,
       borderRadius: 25,
       padding: 10,
