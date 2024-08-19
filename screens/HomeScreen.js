@@ -28,7 +28,7 @@ const HomeScreen = (props) => {
         props.navigation.navigate('PostsListScreen');
     }
     const naviCheckin = () => {
-        props.navigation.navigate('CheckInscreen');
+        props.navigation.navigate('CheckInScreen');
     }
   return (
     <View style={styles.container}>
