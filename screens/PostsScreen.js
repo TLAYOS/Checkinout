@@ -65,7 +65,7 @@ const PostsScreen = () => {
         onChangeText={setMessage}
         style={styles.textInput}
       />
-      <Button title="Post" onPress={handlePost} />
+      <Button title="Publicar" onPress={handlePost} />
     </View>
   )
 }
