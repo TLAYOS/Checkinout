@@ -29,7 +29,7 @@ function MyStack() {
       <Stack.Screen name='PostsScreen' component={PostsScreen} options={{title: 'Crear Avisos'}}/>
       <Stack.Screen name='PostsListScreen' component={PostsListScreen} options={{title: 'Avisos'}}/>
       <Stack.Screen name='CheckInScreen' component={CheckInScreen} options={{title: 'Registro de entrada'}}/>
-      <Stack.Screen name='ChecOutScreen' component={CheckOutScreen} options={{title: 'Registro de salida'}}/>
+      <Stack.Screen name='CheckOutScreen' component={CheckOutScreen} options={{title: 'Registro de salida'}}/>
 
     </Stack.Navigator>
 
