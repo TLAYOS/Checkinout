@@ -9,18 +9,18 @@ const PostsListScreen = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // Reference to the 'posts' collection
+        
         const postsRef = collection(db, 'posts');
-        // Get the documents in the collection
+        
         const querySnapshot = await getDocs(postsRef);
 
-        // Map over the documents and get the data
+        
         const postsList = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
         }));
 
-        // Set the posts state
+        
         setPosts(postsList);
       } catch (error) {
         console.error('Error fetching posts: ', error);
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 200,
+    height: 300,
     marginBottom: 8,
   },
   message: {
