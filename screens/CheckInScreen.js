@@ -80,7 +80,7 @@ const CheckInScreen = () => {
                     const biometricAuth = await LocalAuthentication.authenticateAsync({
                         promptMessage: 'Authenticate with Biometrics',
                         cancelLabel: 'Cancel',
-                        disableDeviceFallback: true, // Set to false to allow PIN/password fallback
+                        disableDeviceFallback: false, 
                     });
                 
                     // Exitus
