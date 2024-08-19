@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
 import { db } from '../database/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, Timestamp } from 'firebase/firestore';
 
 const PostsListScreen = () => {
   const [posts, setPosts] = useState([]);
@@ -30,13 +30,23 @@ const PostsListScreen = () => {
     fetchPosts();
   }, []);
 
-  const renderItem = ({ item }) => (
-    <View style={styles.postContainer}>
-      <Image source={{ uri: item.imageUrl }} style={styles.image} />
-      <Text style={styles.message}>{item.message}</Text>
-      <Text style={styles.timestamp}>{new Date(item.timestamp.toDate()).toLocaleString()}</Text>
-    </View>
-  );
+  const renderItem = ({ item }) => {
+    // Handle timestamp
+    let formattedTimestamp = '';
+    if (item.timestamp instanceof Timestamp) {
+      formattedTimestamp = item.timestamp.toDate().toLocaleString();
+    } else if (item.timestamp && typeof item.timestamp === 'object') {
+      formattedTimestamp = new Date(item.timestamp.seconds * 1000).toLocaleString();
+    }
+
+    return (
+      <View style={styles.postContainer}>
+        <Image source={{ uri: item.imageUrl }} style={styles.image} />
+        <Text style={styles.message}>{item.message}</Text>
+        <Text style={styles.timestamp}>{formattedTimestamp}</Text>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -77,3 +87,4 @@ const styles = StyleSheet.create({
 });
 
 export default PostsListScreen;
+
