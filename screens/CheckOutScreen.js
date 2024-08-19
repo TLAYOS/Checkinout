@@ -117,7 +117,7 @@ const CheckOutScreen = () => {
             }}
             >
             <Button
-            title='Registrar entrada con biometricos'
+            title='Registrar salida con biometricos'
             color='green'
             onPress={handleBiometricAuth} />
 
