@@ -23,30 +23,28 @@ const PostsScreen = () => {
 
   const handlePost = async () => {
     if (!selectedImage || !message) {
-      alert('Please select an image and write a message.');
+      alert('Por favor selecciona una imagen y escribe un message.');
       return;
     }
   
     try {
-      // Create a reference to the 'posts' collection
       const postsRef = collection(db, 'posts');
   
-      // Add a new document with the selected image URL and message
       await addDoc(postsRef, {
         imageUrl: selectedImage,
         message: message,
-        timestamp: serverTimestamp(),  // Automatically adds the current timestamp
+        timestamp: serverTimestamp(),  
       });
   
-      alert('Post saved successfully!');
+      alert('Aviso creado con exito');
       
       // Clear the selection and message after posting
       setSelectedImage(null);
       setMessage('');
       
     } catch (error) {
-      console.error('Error adding post: ', error);
-      alert('Failed to save post. Please try again.');
+      console.error('Error añadiendo el aviso: ', error);
+      alert('Por favor intentelo de nuevo.');
     }
   };
   return (
