@@ -9,6 +9,7 @@ import LogInScreen from './screens/LogInScreen';
 import HomeScreen from './screens/HomeScreen';
 import UploadPostScreen from './screens/UploadPostScreen';
 import PostsScreen from './screens/PostsScreen';
+import PostsListScreen from './screens/PostsListScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -22,8 +23,10 @@ function MyStack() {
       <Stack.Screen name='CreateUserScreen' component={CreateUserScreen} options={{title: 'Crear Usuario'}} />
       <Stack.Screen name='UserDetailScreen' component={UserDetailScreen} options={{title: 'Detalles del Usuario'}}/>
       <Stack.Screen name='HomeScreen' component={HomeScreen} options={{title: 'Menu'}}/> 
-      <Stack.Screen name='UploadPostScreen' component={UploadPostScreen} options={{title: 'Crear Aviso'}}/>
-      <Stack.Screen name='PostsScreen' component={PostsScreen} options={{title: 'Avisos'}}/>
+      <Stack.Screen name='UploadPostScreen' component={UploadPostScreen} options={{title: 'Guardar Imagen'}}/>
+      <Stack.Screen name='PostsScreen' component={PostsScreen} options={{title: 'Crear Avisos'}}/>
+      <Stack.Screen name='PostsListScreen' component={PostsListScreen} options={{title: 'Avisos'}}/>
+
     </Stack.Navigator>
 
     
