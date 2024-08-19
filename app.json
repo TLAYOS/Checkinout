@@ -12,7 +12,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.Rogelio Aguilera.checkinout",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "We need to use Face ID to authenticate you securely."
+      }
     },
     "android": {
       "adaptiveIcon": {
