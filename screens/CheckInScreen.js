@@ -42,31 +42,65 @@ const CheckInScreen = () => {
         ]);
 
         const handleBiometricAuth = async () => {
-            try {
+            //revision de hardware
+            const isBiometricAvailable = await LocalAuthentication.hasHardwareAsync();
+
+            //regreso a patron, pin o contraseña de no tenerlo
+            if(!isBiometricAvailable)
+                return alertComponent(
+                    'Favor de ingresar su confirmación',
+                    'Su dispositivo no soporta autorizacion biometrica',
+                    'Ok',
+                    () => fallBackToDefaultAuth()
+            );
+
+            //revisar tipos de biometricos disponibles 1043
+            let supportedBiometrics;
+            if (isBiometricAvailable)
+                supportedBiometrics = await LocalAuthentication.supportedAuthenticationTypesAsync();
+            //Revisar biometricos almacenados en el dispositivo
+            const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
+            if (!savedBiometrics)
+                return alertComponent(
+                    'No existe registro de biometricos',
+                    'Porfavor use su contraseña',
+                    'Ok',
+                    () => fallBackToDefaultAuth()
+                );
+
+                //Autentifiaccion con Biometricos
                 const biometricAuth = await LocalAuthentication.authenticateAsync({
-                    promptMessage: 'Authenticate with Face ID',
-                    cancelLabel: 'Cancel',
-                    disableDeviceFallback: true, // Force biometric authentication only
+                    promptMessage: 'Checkeo con Biometricos',
+                    cancelLabel: 'cancel',
+                    disableDeviceFallback: false,
                 });
-        
-                if (biometricAuth.success) {
-                    Alert.alert('Authentication Success', 'You have successfully authenticated!');
-        
-                    // Save a timestamp to Firestore
-                    await addDoc(collection(db, 'entrada'), {
-                        timestamp: serverTimestamp(), // Auto-generate the current timestamp
-                        user: 'user_id_or_name', // Optionally, add the user ID or name
+
+                //Exitus
+                try {
+                    const biometricAuth = await LocalAuthentication.authenticateAsync({
+                        promptMessage: 'Authenticate with Biometrics',
+                        cancelLabel: 'Cancel',
+                        disableDeviceFallback: true, // Set to false to allow PIN/password fallback
                     });
-        
-                    console.log('Timestamp saved successfully!');
-                } else {
-                    Alert.alert('Authentication Failed', 'Please try again');
+                
+                    // Exitus
+                    if (biometricAuth.success) {
+                        Alert.alert('Authentication Success', 'You have successfully authenticated!');
+                        
+                        // Save a timestamp to Firestore
+                        await addDoc(collection(db, 'entrada'), {
+                            timestamp: serverTimestamp(), // Auto-generate the current timestamp
+                            user: 'user_id_or_name', // Optionally, add the user ID or name
+                        });
+            
+                        console.log('Timestamp saved successfully!');
+                    } else {
+                        Alert.alert('Authentication Failed', 'Please try again');
+                    }
+                } catch (error) {
+                    console.error('Biometric authentication error:', error);
                 }
-            } catch (error) {
-                console.error('Biometric authentication error:', error);
-            }
         };
-        
 
   return (
     <SafeAreaView>
