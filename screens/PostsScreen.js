@@ -12,7 +12,7 @@ const PostsScreen = () => {
   useEffect(() => {
     const fetchImages = async () => {
       const storage = getStorage();
-      const listRef = ref(storage, 'path/to/images');
+      const listRef = ref(storage, '/images');
       const result = await listAll(listRef);
       const imageUrls = await Promise.all(result.items.map(item => getDownloadURL(item)));
       setImages(imageUrls);
