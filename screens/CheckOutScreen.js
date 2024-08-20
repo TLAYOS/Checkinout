@@ -80,7 +80,7 @@ const CheckOutScreen = () => {
                     const biometricAuth = await LocalAuthentication.authenticateAsync({
                         promptMessage: 'Confirmacion con firma digital',
                         cancelLabel: 'Cancel',
-                        disableDeviceFallback: false, 
+                        disableDeviceFallback: true, 
                     });
                 
                     // Exitus
