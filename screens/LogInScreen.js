@@ -25,7 +25,7 @@ const LogInScreen = (props) => {
     }, []);
 
     const handleLogin = () => {
-        console.log('Apretó el Buton'); // Check if the function is triggered
+        console.log('Apretó el Buton'); 
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log('User logged in successfully:', userCredential.user);

@@ -43,7 +43,7 @@ const UploadPostScreen = () => {
             });
 
             const filename = image.substring(image.lastIndexOf('/') + 1);
-            const storageRef = ref(storage, `images/${filename}`); // Adjust the path as needed
+            const storageRef = ref(storage, `images/${filename}`); 
 
             await uploadBytes(storageRef, blob);
             blob.close();
