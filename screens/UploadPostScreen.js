@@ -53,7 +53,11 @@ const UploadPostScreen = () => {
             const storageRef = ref(storage, `images/${filename}`);
     
             await uploadBytes(storageRef, blob);
-            blob.close();
+    
+            // Close the blob only on non-web platforms
+            if (Platform.OS !== 'web') {
+                blob.close();
+            }
     
             const downloadURL = await getDownloadURL(storageRef);
             setUploading(false);
