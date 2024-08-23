@@ -27,27 +27,34 @@ const UploadPostScreen = () => {
     const uploadMedia = async () => {
         setUploading(true);
         try {
-            const { uri } = await FileSystem.getInfoAsync(image);
-            const blob = await new Promise((resolve, reject) => {
-                const xhr = new XMLHttpRequest();
-                xhr.onload = () => {
-                    resolve(xhr.response);
-                };
-                xhr.onerror = (e) => {
-                    console.error(e);
-                    reject(new TypeError('Fallo de red'));
-                };
-                xhr.responseType = 'blob';
-                xhr.open('GET', uri, true);
-                xhr.send(null);
-            });
-
+            let blob;
+    
+            if (Platform.OS === 'web') {
+                const response = await fetch(image);
+                blob = await response.blob();
+            } else {
+                const { uri } = await FileSystem.getInfoAsync(image);
+                blob = await new Promise((resolve, reject) => {
+                    const xhr = new XMLHttpRequest();
+                    xhr.onload = () => {
+                        resolve(xhr.response);
+                    };
+                    xhr.onerror = (e) => {
+                        console.error(e);
+                        reject(new TypeError('Fallo de red'));
+                    };
+                    xhr.responseType = 'blob';
+                    xhr.open('GET', uri, true);
+                    xhr.send(null);
+                });
+            }
+    
             const filename = image.substring(image.lastIndexOf('/') + 1);
-            const storageRef = ref(storage, `images/${filename}`); 
-
+            const storageRef = ref(storage, `images/${filename}`);
+    
             await uploadBytes(storageRef, blob);
             blob.close();
-
+    
             const downloadURL = await getDownloadURL(storageRef);
             setUploading(false);
             Alert.alert('Aviso', 'Imagen subida con éxito');
@@ -58,6 +65,7 @@ const UploadPostScreen = () => {
             Alert.alert('Error', 'Hubo un problema al subir la imagen');
         }
     };
+    
 
     return (
         <SafeAreaView style={styles.container}>
