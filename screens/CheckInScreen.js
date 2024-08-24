@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { Text, StyleSheet, View, SafeAreaView, Button, Alert, TouchableHighlight } from 'react-native'
+import { Text, StyleSheet, View, SafeAreaView, Button, Alert, TouchableHighlight, Platform } from 'react-native'
 import * as LocalAuthentication from 'expo-local-authentication'
 import { db } from '../database/firebase'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
